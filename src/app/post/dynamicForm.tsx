@@ -125,23 +125,18 @@ const DynamicForm = () => {
             <h2>Delete</h2>
             <form onSubmit={formik.handleSubmit}>
                 {Object.keys(formik.errors).length > 0 && <div>Form has erros. Please correct them.</div>}
-                {form.map((f, index) => (
-                    <div key={index}>
-                        <label htmlFor={f.field}>{f.field}</label>
-                        <input
-                            id={f.field}
-                            type={f.type}
-                            {...formik.getFieldProps(f.field)}
-                        />
-                        {formik.touched[f.field as keyof typeof formik.touched] && formik.errors[f.field as keyof typeof formik.errors] && (
-                            <div>{formik.errors[f.field as keyof typeof formik.errors]}</div>
-                        )}
-                    </div>
-                ))}
+                <div key='delete'>
+                    <label htmlFor='id'>id</label>
+                    <input
+                        id='id'
+                        type='number'
+                    />
+                </div>
                 < button type="submit" disabled={formik.isSubmitting} >
                     {formik.isSubmitting ? 'Submitting...' : 'submit'}
                 </button>
             </form >
+
         </>
 
     );
