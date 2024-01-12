@@ -8,8 +8,6 @@ type tForm = {
 };
 const DynamicForm = () => {
     let data = Array();
-    // const [form, setForm] = useState<any[]>();
-
     const [form, setForm] = useState<tForm[]>([]);
     const formik = useFormik({
         initialValues: {},
@@ -60,6 +58,71 @@ const DynamicForm = () => {
 
     return (
         <>
+            <h1>Auto Crud Generator (by GetItem API)</h1>
+            <h2>Create</h2>
+            <form onSubmit={formik.handleSubmit}>
+                {Object.keys(formik.errors).length > 0 && <div>Form has erros. Please correct them.</div>}
+                {form.map((f, index) => (
+                    f.field !== 'id' &&
+                    <div key={index}>
+                        <label htmlFor={f.field}>{f.field}</label>
+                        <input
+                            id={f.field}
+                            type={f.type}
+                        // {...formik.getFieldProps(f.field)}
+                        />
+                        {formik.touched[f.field as keyof typeof formik.touched] && formik.errors[f.field as keyof typeof formik.errors] && (
+                            <div>{formik.errors[f.field as keyof typeof formik.errors]}</div>
+                        )}
+                    </div>
+                ))}
+                < button type="submit" disabled={formik.isSubmitting} >
+                    {formik.isSubmitting ? 'Submitting...' : 'submit'}
+                </button>
+            </form >
+            <h2>Update</h2>
+            <form onSubmit={formik.handleSubmit}>
+                {Object.keys(formik.errors).length > 0 && <div>Form has erros. Please correct them.</div>}
+                {form.map((f, index) => (
+                    <div key={index}>
+                        <label htmlFor={f.field}>{f.field}</label>
+                        <input
+                            disabled={f.field === 'id' && true}
+                            id={f.field}
+                            type={f.type}
+                            {...formik.getFieldProps(f.field)}
+                        />
+                        {formik.touched[f.field as keyof typeof formik.touched] && formik.errors[f.field as keyof typeof formik.errors] && (
+                            <div>{formik.errors[f.field as keyof typeof formik.errors]}</div>
+                        )}
+                    </div>
+                ))}
+                < button type="submit" disabled={formik.isSubmitting} >
+                    {formik.isSubmitting ? 'Submitting...' : 'submit'}
+                </button>
+            </form >
+            <h2>Read</h2>
+            <form onSubmit={formik.handleSubmit}>
+                {Object.keys(formik.errors).length > 0 && <div>Form has erros. Please correct them.</div>}
+                {form.map((f, index) => (
+                    <div key={index}>
+                        <label htmlFor={f.field}>{f.field}</label>
+                        <input
+                            disabled
+                            id={f.field}
+                            type={f.type}
+                            {...formik.getFieldProps(f.field)}
+                        />
+                        {formik.touched[f.field as keyof typeof formik.touched] && formik.errors[f.field as keyof typeof formik.errors] && (
+                            <div>{formik.errors[f.field as keyof typeof formik.errors]}</div>
+                        )}
+                    </div>
+                ))}
+                < button type="submit" disabled={formik.isSubmitting} >
+                    {formik.isSubmitting ? 'Submitting...' : 'submit'}
+                </button>
+            </form >
+            <h2>Delete</h2>
             <form onSubmit={formik.handleSubmit}>
                 {Object.keys(formik.errors).length > 0 && <div>Form has erros. Please correct them.</div>}
                 {form.map((f, index) => (
